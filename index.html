@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake News Detector</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9fd;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        width: 80%;
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: rgb(248, 247, 252);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      h2 {
+        text-align: center;
+        color: #666;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: none;
+      }
+      button {
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .result {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .true {
+        color: green;
+      }
+      .false {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>FAKE NEWS DETECTOR</h1>
+      <h2>Enter the article</h2>
+
+      <textarea
+        id="article"
+        placeholder="Paste the article text here..."
+      ></textarea>
+
+      <button onclick="checkFakeNews()">Check</button>
+
+      <div id="result" class="result"></div>
+    </div>
+
+    <script>
+      // Variables to store article and decision
+      var previousArticle = "";
+      var previousDecision = null;
+
+      // Function to simulate checking the news
+      function checkFakeNews() {
+        // Get the text of the article
+        var articleText = document.getElementById("article").value.trim();
+
+        if (articleText == "") {
+          alert("Please enter an article text!");
+          return;
+        }
+
+        // If the article is the same as the previous one, return the previous decision
+        if (articleText === previousArticle) {
+          displayResult(previousDecision);
+          return;
+        }
+
+        // Simulate a random true/false check (for demonstration purposes)
+        var isFake = Math.random() > 0.5; // Randomly returns true or false
+        var result = isFake
+          ? "This article is likely FAKE NEWS."
+          : "This article seems to be TRUE.";
+        var resultClass = isFake ? "false" : "true";
+
+        // Store the result and article for later use
+        previousArticle = articleText;
+        previousDecision = { text: result, class: resultClass };
+
+        // Show the result
+        displayResult(previousDecision);
+      }
+
+      // Helper function to display the result
+      function displayResult(decision) {
+        var resultElement = document.getElementById("result");
+        resultElement.innerHTML = decision.text;
+        resultElement.className = "result " + decision.class;
+      }
+    </script>
+  </body>
+</html>
